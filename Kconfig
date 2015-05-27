@@ -17,7 +17,7 @@ config COMMON_PATH
     option env="COMMON_PATH"
 
 menu "seL4 Applications"
-    source "apps/Kconfig"
+    source "apps/helloworld/Kconfig"
 endmenu
 
 menu "seL4 Kernel"
