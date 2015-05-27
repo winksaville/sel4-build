@@ -7,6 +7,9 @@
 #
 # @TAG(GD_GPL)
 #
+
+lib-dirs := libs
+
 all: app-images
 
 -include .config
