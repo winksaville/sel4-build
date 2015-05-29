@@ -15,6 +15,7 @@ if [ "$#" -ne 1 ]; then
   echo "  ./newapp.sh xxx"
   echo ""
   echo "'xxx' is the name of the new application"
+  echo "and it will be converted to lower case."
   exit
 fi
 
