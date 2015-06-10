@@ -37,6 +37,16 @@ simulate-hw-ia32:
 		-m 512 -nographic -kernel images/kernel-ia32-pc99 \
 		-initrd images/helloworld-image-ia32-pc99
 
+simulate-mpscfifo-ia32:
+	qemu-system-i386 \
+		-m 512 -nographic -kernel images/kernel-ia32-pc99 \
+		-initrd images/mpscfifo-image-ia32-pc99
+
+simulate-test_thrds-ia32:
+	qemu-system-i386 \
+		-m 512 -nographic -kernel images/kernel-ia32-pc99 \
+		-initrd images/test_thrds-image-ia32-pc99
+
 .PHONY: help
 help:
 	@echo "sel4test - unit and regression tests for seL4"

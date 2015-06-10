@@ -17,6 +17,8 @@ config COMMON_PATH
     option env="COMMON_PATH"
 
 menu "seL4 Applications"
+    source "apps/test_thrds/Kconfig"
+    source "apps/mpscfifo/Kconfig"
     source "apps/helloworld/Kconfig"
 endmenu
 
@@ -33,6 +35,7 @@ menu "seL4 Libraries"
     source "libs/libsel4allocman/Kconfig"
     source "libs/libcpio/Kconfig"
     source "libs/libelf/Kconfig"
+    source "libs/libsel4thrds/Kconfig"
     source "libs/libsel4utils/Kconfig"
     source "libs/libsel4platsupport/Kconfig"
     source "libs/libsel4test/Kconfig"
