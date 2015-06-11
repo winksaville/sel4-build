@@ -1,6 +1,6 @@
 # sel4-build
-This is part of the [sel4-helloworld](https://github.com/winksaville/sel4-helloworld) project
-and you also need to follow the instructions at [sel4-manifest](https://github.com/winksaville/sel4-helloworld-manifest).
+This is part of the [sel4-test-thrds](https://github.com/winksaville/sel4-test-thrds) project
+and you also need to follow the instructions at [sel4-test-thrds-manifest](https://github.com/winksaville/sel4-test-thrds-manifest).
 
 Currently to add another project at a minimum you need to modify
 [Kconfig](https://github.com/winksaville/sel4-build/blob/master/Kconfig) in this project and probably

@@ -17,7 +17,7 @@ config COMMON_PATH
     option env="COMMON_PATH"
 
 menu "seL4 Applications"
-    source "apps/test_thrds/Kconfig"
+    source "apps/test-thrds/Kconfig"
     source "apps/mpscfifo/Kconfig"
     source "apps/helloworld/Kconfig"
 endmenu
