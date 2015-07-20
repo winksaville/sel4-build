@@ -26,6 +26,7 @@ menu "seL4 Libraries"
     source "libs/libsel4putchar/Kconfig"
     source "libs/libsel4printf/Kconfig"
     source "libs/libsel4assert/Kconfig"
+    source "libs/libsel4string/Kconfig"
     source "libs/libsel4startstop/Kconfig"
     source "libs/libsel4benchmark/Kconfig"
 endmenu
