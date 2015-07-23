@@ -1,1 +1,2 @@
 add_subdirectory(libsel4putchar)
+add_subdirectory(libsel4startstop)
