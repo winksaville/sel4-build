@@ -52,27 +52,6 @@ add_custom_target(
     DEPENDS ${CMAKE_BINARY_DIR}/kernel/kernel-${ARCH}-${PLAT}
 )
 
-# Custom command to make libsel4.a and copy to CMAKE_BINARY_DIR
-add_custom_command(
-    OUTPUT ${CMAKE_BINARY_DIR}/libs/libsel4/libsel4.a
-    COMMAND $(MAKE) libsel4
-    COMMAND mkdir -p ${CMAKE_BINARY_DIR}/libs/libsel4
-    COMMAND cp ${CMAKE_SOURCE_DIR}/build/${ARCH}/${PLAT}/libsel4/libsel4.a ${CMAKE_BINARY_DIR}/libs/libsel4
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-)
-
-# Custom target to invoke the libsel4 custom command
-add_custom_target(
-    libsel4
-    DEPENDS ${CMAKE_BINARY_DIR}/libs/libsel4/libsel4.a
-)
-
-# Initialize where libsel4 "system" includes are found
-include_directories(SYSTEM
-    ${CMAKE_SOURCE_DIR}/stage/${ARCH}/${PLAT}/include
-)
-
-
 # Custom target to use qemu to run the kernel and helloworld-main
 add_custom_target(
     simulate
