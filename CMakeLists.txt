@@ -2,9 +2,16 @@ cmake_minimum_required (VERSION 3.3)
 
 project (sel4-newlibs)
 
-# the "ASM" was required to allso the CMAKE_ASM_FLAGS below to be effective
+# The "ASM" was required to for the CMAKE_ASM_FLAGS below to be effective
 # and cause cmake to actually generate the proper ASM_FLAGS value.
 enable_language(C ASM)
+
+# Check for ccache
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+endif(CCACHE_FOUND)
 
 # ARCH and PLAT form a tuple which are used to define part of the path for
 # libraries and includes.
