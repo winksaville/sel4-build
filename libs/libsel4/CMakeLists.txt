@@ -20,28 +20,36 @@ set(SEL4_XML "${CMAKE_CURRENT_SOURCE_DIR}/include/interfaces/sel4.xml")
 set(SYSCALL_XML "${CMAKE_CURRENT_SOURCE_DIR}/include/api/syscall.xml")
 
 # Custom command to make autoconf.h
-# TODO: Change autoconf.h generation to use CMake makefiles
 set(AUTOCONF_H_OUTPUT "${CMAKE_SOURCE_DIR}/include/generated/autoconf.h")
+set(COMMON_PATH ${CMAKE_SOURCE_DIR}/tools/common)
+set(KERNEL_ROOT_PATH ${CMAKE_SOURCE_DIR}/kernel)
+set(CONF ${CMAKE_BINARY_DIR}/tools/kbuild/kconfig/conf)
 add_custom_command(
     OUTPUT  ${AUTOCONF_H_OUTPUT}
-    COMMAND $(MAKE) -f ${CMAKE_SOURCE_DIR}/Makefile silentoldconfig
+    COMMAND mkdir -p include/config
+    COMMAND mkdir -p include/generated
+    COMMAND COMMON_PATH=${COMMON_PATH} KERNEL_ROOT_PATH=${KERNEL_ROOT_PATH} ${CONF} --silentoldconf Kconfig
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
-# Custom target to invoke the libsel4 custom command
+# Custom target to invoke the make autoconf.h
+# This depends on the "conf" executable which is
+# located in tools/kbuild/kconfig.
 add_custom_target(
     autoconf.h
     DEPENDS ${AUTOCONF_H_OUTPUT}
+    DEPENDS conf
 )
 
 # Custom command to make types_gen.h
 set(BF_GEN_PATH "${CMAKE_CURRENT_SOURCE_DIR}/tools/bitfield_gen.py")
+set(TYPES_GEN_H_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/include/sel4/types.bf")
 set(TYPES_GEN_H_OUTPUT_DIR  "${CMAKE_CURRENT_BINARY_DIR}/include/sel4")
 set(TYPES_GEN_H_OUTPUT  "${TYPES_GEN_H_OUTPUT_DIR}/types_gen.h")
 add_custom_command(
     OUTPUT  ${TYPES_GEN_H_OUTPUT}
     COMMAND mkdir -p ${TYPES_GEN_H_OUTPUT_DIR}
-    COMMAND python ${BF_GEN_PATH} --environment libsel4 "${CMAKE_CURRENT_SOURCE_DIR}/include/sel4/types.bf" ${TYPES_GEN_H_OUTPUT}
+    COMMAND python ${BF_GEN_PATH} --environment libsel4 ${TYPES_GEN_H_INPUT} ${TYPES_GEN_H_OUTPUT}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 

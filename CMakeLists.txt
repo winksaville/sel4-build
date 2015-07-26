@@ -68,3 +68,4 @@ add_custom_target(
 # Look for additional CMakeLists.txt files
 add_subdirectory(libs)
 add_subdirectory(apps)
+add_subdirectory(tools/kbuild/kconfig)
