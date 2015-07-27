@@ -50,6 +50,8 @@ add_custom_command(
     OUTPUT  ${TYPES_GEN_H_OUTPUT}
     COMMAND mkdir -p ${TYPES_GEN_H_OUTPUT_DIR}
     COMMAND python ${BF_GEN_PATH} --environment libsel4 ${TYPES_GEN_H_INPUT} ${TYPES_GEN_H_OUTPUT}
+    # Remove parsetab.py which is an artifact of running BF_GEN_PATH
+    COMMAND rm ${CMAKE_CURRENT_SOURCE_DIR}/parsetab.py
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
