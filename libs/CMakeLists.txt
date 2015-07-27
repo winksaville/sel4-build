@@ -1,3 +1,7 @@
 add_subdirectory(libsel4)
+add_subdirectory(libsel4assert)
+add_subdirectory(libsel4benchmark)
+add_subdirectory(libsel4printf)
 add_subdirectory(libsel4putchar)
 add_subdirectory(libsel4startstop)
+add_subdirectory(libsel4string)
