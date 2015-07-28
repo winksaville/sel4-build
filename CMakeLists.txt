@@ -39,10 +39,10 @@ set(SEL4_C_ASM_FLAGS
 
 # Set the linker flags, for x86 only
 set(CMAKE_EXE_LINKER_FLAGS
-    "-Wl,--build-id=none -Wl,-m,elf_i386 -nostdlib -u _seL4_Start -e _seL4_Start"
+    "${CMAKE_EXE_LINKER_FLAGS} -Wl,--build-id=none -Wl,-m,elf_i386 -nostdlib -u _seL4_Start -e _seL4_Start"
 )
-set(CMAKE_C_FLAGS ${SEL4_C_ASM_FLAGS})
-set(CMAKE_ASM_FLAGS ${SEL4_C_ASM_FLAGS})
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SEL4_C_ASM_FLAGS}")
+set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${SEL4_C_ASM_FLAGS}")
 
 # Custom command to make kernel.elf and copy to CMAKE_BINARY_DIR
 add_custom_command(
@@ -62,7 +62,7 @@ add_custom_target(
 # Custom target to use qemu to run the kernel and helloworld-main
 add_custom_target(
     simulate
-    COMMAND qemu-system-i386 -m 512 -nographic -kernel ${CMAKE_BINARY_DIR}/kernel/kernel-${ARCH}-${PLAT} -initrd ${CMAKE_BINARY_DIR}/apps/helloworld/helloworld-main
+    COMMAND qemu-system-i386 -m 512 -nographic -kernel ${CMAKE_BINARY_DIR}/kernel/kernel-${ARCH}-${PLAT} -initrd ${CMAKE_BINARY_DIR}/apps/$(app)/$(app)
 )
 
 # Look for additional CMakeLists.txt files
