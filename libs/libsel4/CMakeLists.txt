@@ -11,7 +11,6 @@ target_include_directories(libsel4 SYSTEM
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/arch_include/${ARCH}"
     PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/include"
     PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/arch_include/${ARCH}"
-    PUBLIC "${CMAKE_SOURCE_DIR}/include/generated"
 )
 
 # Paths to XML input files for generating headers.
@@ -20,7 +19,8 @@ set(SEL4_XML "${CMAKE_CURRENT_SOURCE_DIR}/include/interfaces/sel4.xml")
 set(SYSCALL_XML "${CMAKE_CURRENT_SOURCE_DIR}/include/api/syscall.xml")
 
 # Custom command to make autoconf.h
-set(AUTOCONF_H_OUTPUT "${CMAKE_SOURCE_DIR}/include/generated/autoconf.h")
+set(AUTOCONF_H_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/include")
+set(AUTOCONF_H_OUTPUT "${AUTOCONF_H_OUTPUT_DIR}/autoconf.h")
 set(COMMON_PATH ${CMAKE_SOURCE_DIR}/tools/common)
 set(KERNEL_ROOT_PATH ${CMAKE_SOURCE_DIR}/kernel)
 set(CONF ${CMAKE_BINARY_DIR}/tools/kbuild/kconfig/conf)
@@ -29,6 +29,8 @@ add_custom_command(
     COMMAND mkdir -p include/config
     COMMAND mkdir -p include/generated
     COMMAND COMMON_PATH=${COMMON_PATH} KERNEL_ROOT_PATH=${KERNEL_ROOT_PATH} ${CONF} --silentoldconf Kconfig
+    COMMAND mkdir -p ${AUTOCONF_H_OUTPUT_DIR}
+    COMMAND cp ${CMAKE_SOURCE_DIR}/include/generated/autoconf.h ${AUTOCONF_H_OUTPUT}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
