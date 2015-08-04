@@ -44,10 +44,18 @@ set(CMAKE_EXE_LINKER_FLAGS
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SEL4_C_ASM_FLAGS}")
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${SEL4_C_ASM_FLAGS}")
 
+# If the generator is Unix Makefile file kernel should use "$(MAKE)"
+# so parallel makes work. Other wise we should use "make" itself.
+if(${CMAKE_GENERATOR} MATCHES ".*Unix Makefiles")
+    set(kernel-make "$(MAKE)")
+else()
+    set(kernel-make "make")
+endif(${CMAKE_GENERATOR} MATCHES ".*Unix Makefiles")
+
 # Custom command to make kernel.elf and copy to CMAKE_BINARY_DIR
 add_custom_command(
     OUTPUT ${CMAKE_BINARY_DIR}/kernel/kernel-${ARCH}-${PLAT}
-    COMMAND $(MAKE) kernel_elf
+    COMMAND ${kernel-make} kernel_elf
     COMMAND mkdir -p ${CMAKE_BINARY_DIR}/kernel
     COMMAND cp ${CMAKE_SOURCE_DIR}/build/kernel/kernel.elf ${CMAKE_BINARY_DIR}/kernel/kernel-${ARCH}-${PLAT}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -59,11 +67,6 @@ add_custom_target(
     DEPENDS ${CMAKE_BINARY_DIR}/kernel/kernel-${ARCH}-${PLAT}
 )
 
-# Custom target to use qemu to run the kernel and helloworld-main
-add_custom_target(
-    simulate
-    COMMAND qemu-system-i386 -m 512 -nographic -kernel ${CMAKE_BINARY_DIR}/kernel/kernel-${ARCH}-${PLAT} -initrd ${CMAKE_BINARY_DIR}/apps/$(app)/$(app)
-)
 
 # Look for additional CMakeLists.txt files
 add_subdirectory(libs)
