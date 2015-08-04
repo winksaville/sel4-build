@@ -14,7 +14,12 @@ config COMMON_PATH
     option env="COMMON_PATH"
 
 menu "seL4 Applications"
+    source "apps/min-app/Kconfig"
     source "apps/helloworld/Kconfig"
+    source "apps/assert/Kconfig"
+    source "apps/myassert/Kconfig"
+    source "apps/bootinfo/Kconfig"
+    source "apps/test-nolibc/Kconfig"
 endmenu
 
 menu "seL4 Kernel"
