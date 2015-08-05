@@ -38,7 +38,7 @@ ifeq ("$(QF)", "")
 endif
 
 # note: this relies on qemu after version 2.0
-simulate:
+run:
 	$(QEMU) $(QF) $(QEMU_FLAGS) -kernel $(KERNEL_IMAGE) -initrd $(APP_IMAGE)
 
 # Start qemu in stopped mode (-S option) with a defualt TCP port localhost:1234 (-s option)
@@ -53,7 +53,7 @@ help:
 	@echo "                          below for valid configurations."
 	@echo " make silentoldconfig   - Update configuration with the defaults of any"
 	@echo "                          newly introduced settings."
-	@echo " make simulate {app=xx} - Where xx is application in apps/ (default=helloworld)"
+	@echo " make run {app=xx}      - Where xx is application in apps/ (default=helloworld)"
 	@echo " make                   - Build with the current configuration."
 	@echo ""
 	@echo "Valid default configurations are:"
